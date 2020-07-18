@@ -77,7 +77,10 @@ public class TelegramBotImpl extends AbstractBot {
 			String mensagemEnviada = update.message().text();
 			if (mensagemEnviada != null) {
 				InteracaoTelegram it = new InteracaoTelegram(update);
-				it.setDataHoraMensagem(LocalDateTime.now());
+				LocalDateTime date = LocalDateTime.of(1970, 01, 01, 0, 0);
+			    date = date.plusSeconds(update.message().date()); // A data é passada em segundos pelo bot.
+			    date = date.minusHours(3); // Diminui em 3hs por conta do timezone UTC-3
+				it.setDataHoraMensagem(date);
 				listaDeInteracoes.add(it);
 			}
 
