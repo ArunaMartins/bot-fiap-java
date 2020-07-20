@@ -27,25 +27,20 @@ import com.pengrad.telegrambot.response.SendResponse;
  */
 public class TelegramBotImpl extends AbstractBot {
 
-	private String chaveBot = "";
 	private TelegramBot bot;
 	private SendResponse sendResponse;
 	private int idMensagemInicial = 0;
 
 	public TelegramBotImpl(String chaveBotTelegram) throws CouldNotConnectToBotException {
-		super();
-		// this.chaveBot = chaveBotTelegram;
-		// this.chaveBot = "1218848996:AAEaq23sqJbLhx3hOwriDrdp_C0PmyTMAA8";
+		super(chaveBotTelegram);
 	}
 
-	public TelegramBotImpl() throws CouldNotConnectToBotException  {
-		super();
-	}
 	
 	@Override
-	protected void conectarBot() throws CouldNotConnectToBotException {
+	protected void conectarBot(String chave) throws CouldNotConnectToBotException {
 		try {
-			this.bot = TelegramBotAdapter.build("1218848996:AAEaq23sqJbLhx3hOwriDrdp_C0PmyTMAA8");
+//			this.bot = TelegramBotAdapter.build("1218848996:AAEaq23sqJbLhx3hOwriDrdp_C0PmyTMAA8");
+			this.bot = TelegramBotAdapter.build(chave);
 		} catch (Exception e) {
 			throw new CouldNotConnectToBotException(
 					"Não foi possível se conectar ao Bot do Telegram com a chave de acesso fornecida. Verique as configurações no arquivo de propriedades.",

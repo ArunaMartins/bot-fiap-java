@@ -15,15 +15,16 @@ public abstract class AbstractBot {
 	 * Construtor que deve ser invocado por todas as classes filhas
 	 * @throws CouldNotConnectToBotException
 	 */
-	public AbstractBot() throws CouldNotConnectToBotException {
-		this.conectarBot();
+	public AbstractBot(String chaveBot) throws CouldNotConnectToBotException {
+		this.conectarBot(chaveBot);
 	}
 
 	/**
 	 * Método de conexao com o Bot
+	 * @param chaveBot A chave para conexão com o Bot
 	 * @throws CouldNotConnectToBotException
 	 */
-	protected abstract void conectarBot() throws CouldNotConnectToBotException;
+	protected abstract void conectarBot(String chaveBot) throws CouldNotConnectToBotException;
 	
 	/**
 	 * Método de envio de mensagem para um usuário que interagiu com o Bot

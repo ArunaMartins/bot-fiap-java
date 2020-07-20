@@ -12,7 +12,7 @@ public class TelegramConnectionTest2 {
 
 	public static void main(String[] args) {
 		try {
-			TelegramBotImpl telegramBotImpl = new TelegramBotImpl();
+			TelegramBotImpl telegramBotImpl = new TelegramBotImpl("1218848996:AAEaq23sqJbLhx3hOwriDrdp_C0PmyTMAA8");
 			while (true) {
 				List<AbstractInteracao> interacoes = telegramBotImpl.obtemInteracoesComOBot(10);
 				for (AbstractInteracao interacao : interacoes) {

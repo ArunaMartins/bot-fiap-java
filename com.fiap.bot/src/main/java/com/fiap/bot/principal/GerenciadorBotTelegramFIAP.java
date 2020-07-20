@@ -1,11 +1,15 @@
 package com.fiap.bot.principal;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.Scanner;
 
+import com.fiap.bot.constants.Constants;
 import com.fiap.bot.exceptions.CouldNotConnectToBotException;
 import com.fiap.bot.integrations.abstracts.AbstractInteracao;
 import com.fiap.bot.integrations.impl.TelegramBotImpl;
@@ -33,8 +37,9 @@ public class GerenciadorBotTelegramFIAP {
 	 */
 	public void iniciarBot() throws CouldNotConnectToBotException {
 
-		System.out.println("Gerenciador do Bot do Telegram da Pizzaria FIAP");
-		System.out.println("***********************************************");
+		System.out.println("******************************************************************");
+		System.out.println("         Gerenciador do Bot do Telegram da Pizzaria FIAP");
+		System.out.println("******************************************************************");
 		System.out.println("Iniciando conexão com o Bot do Telegram...");
 
 		// Recuperando arquivo params.properties
@@ -54,11 +59,11 @@ public class GerenciadorBotTelegramFIAP {
 			return;
 
 		// Iniciando a conexão com o Bot e validando se a conexão está válida
-		System.out.println("Conectando no Bot do Telegram...");
+		System.out.println("Conectando ao Bot do Telegram. Por favor aguarde...");
 		TelegramBotImpl bot = new TelegramBotImpl(chaveBotTelegram);
 		boolean conectado = bot.isConnected();
-		System.out.println("Bot Conectado? " + conectado);
 		if (conectado) {
+			System.out.println("Conexão com o Bot realizada com sucesso. Bot Conectado: " + conectado);
 			this.iniciaThreadDeTratamentoDasMensagensDoTelegram(bot);
 			System.out.println("Todos os componentes carregados...\n\n\n");
 			this.iniciaMenusDeConsultaDoGerenciador();
@@ -99,12 +104,12 @@ public class GerenciadorBotTelegramFIAP {
 			System.out.println(" 3. Consultar total vendido pela pizzaria hoje");
 			System.out.println(" 4. Sair");
 			System.out.println("\n");
-			
-			if(mensagem != null) {
+
+			if (mensagem != null) {
 				System.out.println(mensagem + "\n");
 				mensagem = null;
 			}
-			
+
 			String valorLido = lerTela(s);
 			this.trataLeituraTela(valorLido);
 		}
@@ -173,13 +178,24 @@ public class GerenciadorBotTelegramFIAP {
 	}
 
 	private String recuperaChaveBot(Properties arquivoConfiguracao) {
-		// TODO Auto-generated method stub
-		return "asdfa";
+		return arquivoConfiguracao.getProperty(Constants.CHAVE_BOT_TELEGRAM_ARQUIVO_PROPERTIES);
 	}
 
 	private Properties recuperaArquivoDeConfiguracoes() {
-		// TODO Auto-generated method stub
-		return new Properties();
+		Properties props = new Properties();
+		try {
+			FileInputStream fis = new FileInputStream(Constants.CAMINHO_ARQUIVO_PROPERTIES);
+			props.load(fis);
+		} catch (FileNotFoundException e) {
+			System.out.println("Não foi possivel encontrar o arquivo de propriedades.");
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			System.out.println("Não foi possível acessar/ler o arquivo de propriedades.");
+			e.printStackTrace();
+			return null;
+		}
+		return props;
 	}
 
 }
