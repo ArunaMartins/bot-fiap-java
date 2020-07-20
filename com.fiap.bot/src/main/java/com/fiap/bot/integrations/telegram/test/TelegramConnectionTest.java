@@ -13,6 +13,11 @@ import com.pengrad.telegrambot.response.BaseResponse;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 import com.pengrad.telegrambot.response.SendResponse;
 
+/**
+ * Classe de teste de interaçao com o Telegram 1
+ * @author Carlos Eduardo Roque da Silva
+ *
+ */
 public class TelegramConnectionTest {
 
 	public static void main(String[] args) {

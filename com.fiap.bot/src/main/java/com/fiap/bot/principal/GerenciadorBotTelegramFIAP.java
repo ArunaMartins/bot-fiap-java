@@ -24,7 +24,7 @@ import com.fiap.bot.threads.runnables.TratamentoDeMensagensRunnable;
  */
 public class GerenciadorBotTelegramFIAP {
 
-	private Map<Long, AbstractInteracao> listaDeMensagens = new HashMap<Long, AbstractInteracao>();
+	private Map<Long, AbstractInteracao> mapaDeInteracoes = new HashMap<Long, AbstractInteracao>();
 	private Thread threadTratamentoDeMensagens;
 	private String mensagem;
 
@@ -70,6 +70,11 @@ public class GerenciadorBotTelegramFIAP {
 		}
 	}
 
+	/**
+	 * Método que avalia se a chave do Telegram foi preenchida no arquivo de propriedades
+	 * @param chaveBotTelegram A chave lida do arquivo de propriedades (ou não!)
+	 * @return false para uma chave preenchida, true pra uma chave nula ou vazia
+	 */
 	private boolean isChaveNullOrEmpty(String chaveBotTelegram) {
 		boolean chaveInvalida = chaveBotTelegram == null || chaveBotTelegram.isEmpty();
 		if (chaveInvalida)
@@ -79,6 +84,11 @@ public class GerenciadorBotTelegramFIAP {
 		return chaveInvalida;
 	}
 
+	/**
+	 * Método que avalia se o arquivo de propriedades foi encontrado e se o objeto Properties foi populado
+	 * @param arquivoConfiguracao O arquivo de propriedades referente ao arquivo Properties
+	 * @return true para um arquivo lido corretamente, false para um arquivo inválido
+	 */
 	private boolean arquivoDeConfiguracaoValido(Properties arquivoConfiguracao) {
 		if (arquivoConfiguracao == null) {
 			System.out.println("Não foi possível recuperar o arquivo de configurações.");
@@ -89,6 +99,9 @@ public class GerenciadorBotTelegramFIAP {
 		return true;
 	}
 
+	/**
+	 * Método que inicia o menu interno desta thread, para consultas sobre as interações com o Bot
+	 */
 	private void iniciaMenusDeConsultaDoGerenciador() {
 		Scanner s = new Scanner(System.in);
 		boolean processa = true;
@@ -116,6 +129,10 @@ public class GerenciadorBotTelegramFIAP {
 		s.close();
 	}
 
+	/**
+	 * Metodo que avalia os caracteres digitados no menu do programa
+	 * @param valorLido O valor digitado
+	 */
 	private void trataLeituraTela(String valorLido) {
 		switch (valorLido) {
 		case "1":
@@ -136,28 +153,45 @@ public class GerenciadorBotTelegramFIAP {
 
 	}
 
+	/**
+	 * Método que retorna o total vendido na pizzaria com base nas interações com o Bot
+	 */
 	private void consultaTotalVendidoPelaPizzaria() {
-		double total = this.listaDeMensagens.entrySet().size();
+		double total = this.mapaDeInteracoes.entrySet().size();
 		System.out.println("O valor total dos pedidos feitos por usuários tratados pelo Bot é de: " + total);
 		System.out.println("\n\n");
 	}
 
+	/**
+	 * Método que retorna o número de pedidos feitos na pizzaria
+	 */
 	private void consultaNumeroDePedidosFeitosNaPizzaria() {
-		int size = this.listaDeMensagens.entrySet().size();
+		int size = this.mapaDeInteracoes.entrySet().size();
 		System.out.println("O número de pedidos feitos por usuários tratados pelo Bot é de: " + size);
 		System.out.println("\n\n");
 	}
 
+	/**
+	 * Método que retorna o número de conversas tratadas no Bot
+	 */
 	private void consultaNumeroDeConversasTratadasNoBot() {
-		int size = this.listaDeMensagens.entrySet().size();
+		int size = this.mapaDeInteracoes.entrySet().size();
 		System.out.println("O número de conversas com usuários distintos tratados pelo Bot é de: " + size);
 		System.out.println("\n\n");
 	}
 
+	/**
+	 * Metodo que finaliza o programa
+	 */
 	private void finalizaExecucaoDoPrograma() {
 		System.exit(0);
 	}
 
+	/**
+	 * Método que lê os valores da tela
+	 * @param s O objeto que le os valores da tela
+	 * @return O valor lido da tela
+	 */
 	private String lerTela(Scanner s) {
 		String valorLido = "";
 		try {
@@ -170,17 +204,30 @@ public class GerenciadorBotTelegramFIAP {
 		return valorLido;
 	}
 
+	/**
+	 * Método que inicia a thread de tratamento das mensagems do Telegram. Esta thread é paralela à thread principal e compartilha o mapa de lista de interações por usuario
+	 * @param bot O objeto de manipulacao do Bot
+	 */
 	private void iniciaThreadDeTratamentoDasMensagensDoTelegram(TelegramBotImpl bot) {
 		System.out.println("Iniciando Thread de tratamento de mensagens...");
-		this.threadTratamentoDeMensagens = new Thread(new TratamentoDeMensagensRunnable(bot, listaDeMensagens));
+		this.threadTratamentoDeMensagens = new Thread(new TratamentoDeMensagensRunnable(bot, mapaDeInteracoes));
 		this.threadTratamentoDeMensagens.start();
 		System.out.println("Thread de tratamento de mensagens inicado.");
 	}
 
+	/**
+	 * Método que recupera a chave de conexão com o Bot do Telegram
+	 * @param arquivoConfiguracao O arquivo de propriedades que deve ter a chave cadastrada
+	 * @return A chave de conexao com o Telegram
+	 */
 	private String recuperaChaveBot(Properties arquivoConfiguracao) {
 		return arquivoConfiguracao.getProperty(Constants.CHAVE_BOT_TELEGRAM_ARQUIVO_PROPERTIES);
 	}
 
+	/**
+	 * Recupera o arquvo de propriedades no diretorio properties dentro do projeto
+	 * @return Um objeto Properties com as chaves/valores de configuraçao
+	 */
 	private Properties recuperaArquivoDeConfiguracoes() {
 		Properties props = new Properties();
 		try {

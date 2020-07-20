@@ -1,5 +1,10 @@
 package com.fiap.bot.exceptions;
 
+/**
+ * Exceção lançada quando a conexão com o Bot não pode ser estabelecida
+ * @author Carlos Eduardo Roque da Silva
+ *
+ */
 public class CouldNotConnectToBotException extends Exception {
 
 	public CouldNotConnectToBotException(String message, Throwable cause) {
