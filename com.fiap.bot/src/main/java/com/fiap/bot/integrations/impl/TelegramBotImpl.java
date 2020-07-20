@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fiap.bot.exceptions.CouldNotConnectToBotException;
-import com.fiap.bot.exceptions.NotSupportedMessageTypeException;
 import com.fiap.bot.integrations.abstracts.AbstractBot;
 import com.fiap.bot.integrations.abstracts.AbstractInteracao;
-import com.fiap.bot.integrations.enums.MessageTypes;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.TelegramBotAdapter;
 import com.pengrad.telegrambot.model.Update;
@@ -19,22 +17,35 @@ import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 import com.pengrad.telegrambot.response.SendResponse;
 
+/**
+ * Esta classe é a implementação efetiva do Bot de integração com o Telegram.
+ * Ela é responsável por conectar no Bot através da chave de acesso e interagir
+ * com a biblioteca de integração com o Bot (TelegramBot.jar);
+ * 
+ * @author Carlos Eduardo Roque da Silva
+ *
+ */
 public class TelegramBotImpl extends AbstractBot {
 
-	private static final String chaveBot = "1218848996:AAEaq23sqJbLhx3hOwriDrdp_C0PmyTMAA8";
-
-	public TelegramBotImpl() throws CouldNotConnectToBotException {
-		super();
-	}
-
+	private String chaveBot = "";
 	private TelegramBot bot;
 	private SendResponse sendResponse;
 	private int idMensagemInicial = 0;
 
+	public TelegramBotImpl(String chaveBotTelegram) throws CouldNotConnectToBotException {
+		super();
+		// this.chaveBot = chaveBotTelegram;
+		// this.chaveBot = "1218848996:AAEaq23sqJbLhx3hOwriDrdp_C0PmyTMAA8";
+	}
+
+	public TelegramBotImpl() throws CouldNotConnectToBotException  {
+		super();
+	}
+	
 	@Override
 	protected void conectarBot() throws CouldNotConnectToBotException {
 		try {
-			this.bot = TelegramBotAdapter.build(chaveBot);
+			this.bot = TelegramBotAdapter.build("1218848996:AAEaq23sqJbLhx3hOwriDrdp_C0PmyTMAA8");
 		} catch (Exception e) {
 			throw new CouldNotConnectToBotException(
 					"Não foi possível se conectar ao Bot do Telegram com a chave de acesso fornecida. Verique as configurações no arquivo de propriedades.",
@@ -55,7 +66,7 @@ public class TelegramBotImpl extends AbstractBot {
 	}
 
 	@Override
-	public List<AbstractInteracao> obtemInteracoesComOBot(int numeroMensagens) throws NotSupportedMessageTypeException {
+	public List<AbstractInteracao> obtemInteracoesComOBot(int numeroMensagens) {
 
 		// Cria objeto de recebimento de mensagens
 		GetUpdatesResponse updatesResponse;
@@ -66,27 +77,38 @@ public class TelegramBotImpl extends AbstractBot {
 
 		List<AbstractInteracao> listaDeInteracoes = new ArrayList<AbstractInteracao>();
 
-		for (Update update : updates) {
-			// Incrementa o offset
-			idMensagemInicial = update.updateId() + 1;
+		if (updates != null) {
+			for (Update update : updates) {
+				// Incrementa o offset
+				idMensagemInicial = update.updateId() + 1;
 
-			if (update.message().audio() != null) {
-				throw new NotSupportedMessageTypeException(MessageTypes.AUDIO.getNome());
+//				if (update.message().audio() != null) {
+//					throw new NotSupportedMessageTypeException(MessageTypes.AUDIO.getNome());
+//				}
+
+				String mensagemEnviada = update.message().text();
+				if (mensagemEnviada != null) {
+					InteracaoTelegram it = new InteracaoTelegram(update);
+					LocalDateTime date = LocalDateTime.of(1970, 01, 01, 0, 0);
+					date = date.plusSeconds(update.message().date()); // A data é passada em segundos pelo bot.
+					date = date.minusHours(3); // Diminui em 3hs por conta do timezone UTC-3
+					it.setDataHoraMensagem(date);
+					listaDeInteracoes.add(it);
+				}
 			}
 
-			String mensagemEnviada = update.message().text();
-			if (mensagemEnviada != null) {
-				InteracaoTelegram it = new InteracaoTelegram(update);
-				LocalDateTime date = LocalDateTime.of(1970, 01, 01, 0, 0);
-			    date = date.plusSeconds(update.message().date()); // A data é passada em segundos pelo bot.
-			    date = date.minusHours(3); // Diminui em 3hs por conta do timezone UTC-3
-				it.setDataHoraMensagem(date);
-				listaDeInteracoes.add(it);
-			}
-
+		} else {
+			System.out.println(
+					"Não foi possível conectar na API do Telegram. Provavelmente outra pessoa está conectado.");
 		}
 
 		return listaDeInteracoes;
+	}
+
+	public boolean isConnected() {
+		// TODO buscar a forma de validar se esta conexão é valida
+
+		return true;
 	}
 
 }
