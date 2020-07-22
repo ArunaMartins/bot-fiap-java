@@ -5,4 +5,5 @@ public enum Intencoes {
     CONFIRMAR_PEDIDO,
     CONFIRMAR_ENDERECO,
     FINALIZAR_PEDIDO
+    
 }

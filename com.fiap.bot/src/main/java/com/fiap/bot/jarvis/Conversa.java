@@ -29,23 +29,8 @@ public class Conversa {
         String resposta = "";
 
         //sugestão criar uma classe INTENCAO.Indentificar(mensagem) retorna ENUM das intenções disponiveis.
-        if (mensagem.getTexto().equals("teste 4")) {
-            resposta = "aaaa";
-        }
-
-        if (mensagem.getTexto().equals("já tenho uma conversa?")) {
-            // resposta = "eeee";
-            if (this.mensagens.isEmpty() ){
-                resposta = mensagens.stream().findFirst().get().getTexto();    
-            }
-            resposta = "eeee";
-        }
-
-        if (mensagem.getTexto().equals("Qual minha ultima mensagem")) {
-        }
-
-        if (mensagem.getTexto().equals("quero fazer um pedido")){
-
+        if( Intencao.Identificar(mensagem.getTexto()) == Intencoes.CONFIRMAR_PEDIDO){
+            
         }
         
         mensagens.add(mensagem);
