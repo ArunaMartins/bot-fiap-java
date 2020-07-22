@@ -2,6 +2,7 @@ package com.fiap.bot.integrations.telegram.test;
 
 import java.util.List;
 
+import com.fiap.bot.jarvis.JarvisBot;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.TelegramBotAdapter;
 import com.pengrad.telegrambot.model.Update;
@@ -58,7 +59,7 @@ public class TelegramConnectionTest {
 				// verificação de ação de chat foi enviada com sucesso
 
 				System.out.println("Resposta de Chat Action Enviada? " + baseResponse.isOk());
-
+				
 				// envio da mensagem de resposta
 				sendResponse = bot.execute(new SendMessage(update.message().chat().id(), "Não entendi..."));
 

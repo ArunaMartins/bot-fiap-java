@@ -65,6 +65,7 @@ public class GerenciadorBotTelegramFIAP {
 		if (conectado) {
 			System.out.println("Conexão com o Bot realizada com sucesso. Bot Conectado: " + conectado);
 			this.iniciaThreadDeTratamentoDasMensagensDoTelegram(bot);
+			
 			System.out.println("Todos os componentes carregados...\n\n\n");
 			this.iniciaMenusDeConsultaDoGerenciador();
 		}

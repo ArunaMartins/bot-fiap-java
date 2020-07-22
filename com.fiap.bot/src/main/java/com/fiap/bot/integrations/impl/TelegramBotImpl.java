@@ -27,6 +27,10 @@ import com.pengrad.telegrambot.response.SendResponse;
  */
 public class TelegramBotImpl extends AbstractBot {
 
+	// private static final String chaveBot = "1245760106:AAER1kXER5VM334i0vWKK9Y98aCSQikmSF8";
+
+	
+
 	private TelegramBot bot;
 	private SendResponse sendResponse;
 	private int idMensagemInicial = 0;
@@ -47,7 +51,6 @@ public class TelegramBotImpl extends AbstractBot {
 	@Override
 	protected void conectarBot(String chave) throws CouldNotConnectToBotException {
 		try {
-//			this.bot = TelegramBotAdapter.build("1218848996:AAEaq23sqJbLhx3hOwriDrdp_C0PmyTMAA8");
 			this.bot = TelegramBotAdapter.build(chave);
 		} catch (Exception e) {
 			throw new CouldNotConnectToBotException(
@@ -127,6 +130,12 @@ public class TelegramBotImpl extends AbstractBot {
 		// TODO buscar a forma de validar se esta conexão é valida
 
 		return true;
+	}
+
+	@Override
+	public boolean enviaMensagem(Long idConversa, String mensagem) {
+		sendResponse = bot.execute(new SendMessage(idConversa, mensagem));
+		return sendResponse.isOk();
 	}
 
 }

@@ -32,6 +32,8 @@ public abstract class AbstractBot {
 	 * @return
 	 */
 	public abstract boolean enviaMensagem(AbstractInteracao interacao);
+
+	public abstract boolean enviaMensagem(Long idConversa,String mensagem);
 	
 	
 	/**
