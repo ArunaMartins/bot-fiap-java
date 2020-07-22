@@ -8,6 +8,11 @@ import com.fiap.bot.exceptions.CouldNotConnectToBotException;
 import com.fiap.bot.integrations.abstracts.AbstractInteracao;
 import com.fiap.bot.integrations.impl.TelegramBotImpl;
 
+/**
+ * Classe de testes de interação com o Telegram 2
+ * @author Carlos Eduardo Roque da Silva
+ *
+ */
 public class TelegramConnectionTest2 {
 
 	public static void main(String[] args) {

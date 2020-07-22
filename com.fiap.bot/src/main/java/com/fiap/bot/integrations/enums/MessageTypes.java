@@ -1,7 +1,15 @@
 package com.fiap.bot.integrations.enums;
 
+/**
+ * Este Enum é responsavel por classificar os tipos de mensagens possiveis tratados pelo Bot
+ * @author cedua
+ *
+ */
 public enum MessageTypes {
 	
+	/**
+	 * Mensagem de áudio enviada para o Bot
+	 */
 	AUDIO("Audio", 1);
 
 	private String nome;

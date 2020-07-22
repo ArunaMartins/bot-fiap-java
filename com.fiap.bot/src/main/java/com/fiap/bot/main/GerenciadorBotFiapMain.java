@@ -10,6 +10,10 @@ import com.fiap.bot.principal.GerenciadorBotTelegramFIAP;
  */
 public class GerenciadorBotFiapMain 
 {
+	/**
+	 * Método main que inicia a aplicação
+	 * @param args
+	 */
     public static void main( String[] args )
     {
     	// Inicia o programa gerenciador de mensagens do Bot do Telegram
