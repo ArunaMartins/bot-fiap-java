@@ -1,4 +1,4 @@
-package com.fiap.bot.jarvis;
+package com.fiap.bot.integrations.enums;
 
 public enum StatusPedido {
     ABERTO,

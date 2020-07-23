@@ -1,5 +1,7 @@
 package com.fiap.bot.jarvis;
 
+import com.fiap.bot.integrations.enums.StatusPedido;
+
 public class Pedido {
     private String Pizza;
     private String Valor;

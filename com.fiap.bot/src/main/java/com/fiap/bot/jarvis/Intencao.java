@@ -1,5 +1,7 @@
 package com.fiap.bot.jarvis;
 
+import com.fiap.bot.integrations.enums.Intencoes;
+
 public class Intencao {
     public static Intencoes Identificar(String mensagem) {
         //TODO: REGEX

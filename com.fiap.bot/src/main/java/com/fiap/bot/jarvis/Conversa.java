@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.fiap.bot.integrations.enums.Intencoes;
+import com.fiap.bot.integrations.enums.StatusPedido;
+
 public class Conversa {
     private List<Mensagem> mensagens = new ArrayList<Mensagem>();
     private List<Pedido> pedidos = new ArrayList<Pedido>();
