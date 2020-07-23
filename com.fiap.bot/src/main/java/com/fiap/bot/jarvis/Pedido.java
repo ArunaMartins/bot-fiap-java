@@ -3,7 +3,7 @@ package com.fiap.bot.jarvis;
 public class Pedido {
     private String Pizza;
     private String Valor;
-    private String Status;
+    private StatusPedido Status;
 
     public String getPizza() {
         return Pizza;
@@ -12,11 +12,11 @@ public class Pedido {
         this.Pizza = pizza;
     }
 
-    public String getStatus() {
+    public StatusPedido getStatus() {
         return Status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusPedido status) {
         this.Status = status;
     }
 
@@ -32,7 +32,7 @@ public class Pedido {
         Pizza = pizza;
     }
 
-    public Pedido(String pizza, String valor, String status) {
+    public Pedido(String pizza, String valor, StatusPedido status) {
         setPizza(pizza);
         setValor(valor);
         setStatus(status);
