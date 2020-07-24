@@ -59,23 +59,13 @@ public class TelegramBotImpl extends AbstractBot {
 		}
 	}
 
-	/**
-	 * Método que envia a mensagem para um contato que fez uma interação recebida pelo Bot via Telegram
-	 */
-	@Override
-	public boolean enviaMensagem(AbstractInteracao interacao) {
-		Update update = (Update) interacao.getObjetoManipuladorDaMensagem();
-		this.enviaSinalDeDigitandoParaOChat(update);
-		sendResponse = bot.execute(new SendMessage(update.message().chat().id(), interacao.getMensagemResposta()));
-		return sendResponse.isOk();
-	}
-
+	
 	/**
 	 * Método interno que envia o label "Digitando..." para o Bot do Telegram
 	 * @param update O objeto de manipulação da interação do Telegram
 	 */
-	private void enviaSinalDeDigitandoParaOChat(Update update) {
-		this.bot.execute(new SendChatAction(update.message().chat().id(), ChatAction.typing.name()));
+	public void enviarDigitando(Long idConversa) {
+		this.bot.execute(new SendChatAction(idConversa, ChatAction.typing.name()));
 	}
 
 	/**

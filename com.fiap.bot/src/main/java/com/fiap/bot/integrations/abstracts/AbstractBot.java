@@ -31,8 +31,6 @@ public abstract class AbstractBot {
 	 * @param interacao O objeto interacao (AbstractInteracao ou suas classes filhas) que contém as informações da interação com o Bot
 	 * @return
 	 */
-	public abstract boolean enviaMensagem(AbstractInteracao interacao);
-
 	public abstract boolean enviaMensagem(Long idConversa,String mensagem);
 	
 	

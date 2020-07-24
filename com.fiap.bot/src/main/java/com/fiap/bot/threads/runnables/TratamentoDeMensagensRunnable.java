@@ -56,7 +56,7 @@ public class TratamentoDeMensagensRunnable implements Runnable {
 			for (AbstractInteracao interacao : interacoes) {
 
 				// Recupera Id do Usuario Telegram que interagiu
-				long idUsuarioInteracao = interacao.getIdContatoInteracao();
+				long idConversa = interacao.getIdContatoInteracao();
 
 				// String mensagem = interacao.getMensagemEnviadaPeloUsuario();
 
@@ -72,17 +72,21 @@ public class TratamentoDeMensagensRunnable implements Runnable {
 				System.out.println("Data/Hora da mensagem: "
 						+ dataHoraMensagem.format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss")));
 				System.out.println(
-						"ID do Usuario   : " + idUsuarioInteracao + " - " + interacao.getNomeContatoInteracao());
+						"ID do Usuario   : " + idConversa + " - " + interacao.getNomeContatoInteracao());
 				System.out.println("ID da Mensagem  : " + interacao.getIdMensagem());
 
-				String resposta = JarvisBot.IniciarConversa(idUsuarioInteracao)
-						.Responder(new Mensagem(interacao.getIdMensagem(), interacao.getMensagemEnviadaPeloUsuario(), interacao.getDataHoraMensagem()));
+				JarvisBot.IniciarConversa(idConversa, interacao.getNomeContatoInteracao())
+						.Responder(new Mensagem(interacao.getIdMensagem(), interacao.getMensagemEnviadaPeloUsuario(), interacao.getDataHoraMensagem()))
+						.forEach(r -> {
+							this.bot.enviarDigitando(idConversa);
+							this.bot.enviaMensagem(idConversa, r);			
+						});
 
 				// recupera mensagem enviada pelo contato no bot para tratamento
 
 				// Trata mensagem para dar um encaminhamento
 				// this.trataMensagemRecebida(resposta, interacao);
-				this.bot.enviaMensagem(idUsuarioInteracao, resposta);
+				
 			}
 			try {
 				// Espera 2s antes de iniciar uma nova consulta
@@ -101,42 +105,42 @@ public class TratamentoDeMensagensRunnable implements Runnable {
 	 * @param mensagem  A mensagem enviada
 	 * @param interacao A interação executada por um contato do Telegram
 	 */
-	private void trataMensagemRecebida(String mensagem, AbstractInteracao interacao) {
-		if (!mensagem.equals("/start") && !mensagem.equals("/previsao") && !mensagem.equals("/pedido")
-				&& !mensagem.equals("/localizacao")) {
-			interacao.setMensagemResposta("Desculpe... não entendi. Para começar, digite /start.");
-			// Responde ao usuario via objeto de interação com o Bot no Telegram
-			this.bot.enviaMensagem(interacao);
-			return;
-		}
-		if (mensagem.equals("/start")) {
-			interacao.setMensagemResposta("Olá! Eu sou o Bot da Pizzaria! Escolha suas opções abaixo:\n" + "/pedido\n"
-					+ "/localizacao\n" + "/previsao\n" + "/sair");
+	// private void trataMensagemRecebida(String mensagem, AbstractInteracao interacao) {
+	// 	if (!mensagem.equals("/start") && !mensagem.equals("/previsao") && !mensagem.equals("/pedido")
+	// 			&& !mensagem.equals("/localizacao")) {
+	// 		interacao.setMensagemResposta("Desculpe... não entendi. Para começar, digite /start.");
+	// 		// Responde ao usuario via objeto de interação com o Bot no Telegram
+	// 		this.bot.enviaMensagem(interacao);
+	// 		return;
+	// 	}
+	// 	if (mensagem.equals("/start")) {
+	// 		interacao.setMensagemResposta("Olá! Eu sou o Bot da Pizzaria! Escolha suas opções abaixo:\n" + "/pedido\n"
+	// 				+ "/localizacao\n" + "/previsao\n" + "/sair");
 
-			this.bot.enviaMensagem(interacao);
-			return;
-		}
-		if (mensagem.equals("/previsao")) {
-			interacao.setMensagemResposta("O tempo hoje está muito bom para uma pizza!");
-			this.bot.enviaMensagem(interacao);
-			return;
-		}
-		if (mensagem.equals("/localizacao")) {
-			interacao.setMensagemResposta("Estou na Avenida Paulista, 901!!!");
-			this.bot.enviaMensagem(interacao);
-			return;
-		}
-		if (mensagem.equals("/pedido")) {
-			interacao.setMensagemResposta("Legal! Já vou anotar o seu pedido!!!");
-			this.bot.enviaMensagem(interacao);
-			return;
-		}
-		if (mensagem.equals("/sair")) {
-			interacao.setMensagemResposta("Até mais!!!");
-			this.bot.enviaMensagem(interacao);
-			return;
-		}
+	// 		this.bot.enviaMensagem(interacao);
+	// 		return;
+	// 	}
+	// 	if (mensagem.equals("/previsao")) {
+	// 		interacao.setMensagemResposta("O tempo hoje está muito bom para uma pizza!");
+	// 		this.bot.enviaMensagem(interacao);
+	// 		return;
+	// 	}
+	// 	if (mensagem.equals("/localizacao")) {
+	// 		interacao.setMensagemResposta("Estou na Avenida Paulista, 901!!!");
+	// 		this.bot.enviaMensagem(interacao);
+	// 		return;
+	// 	}
+	// 	if (mensagem.equals("/pedido")) {
+	// 		interacao.setMensagemResposta("Legal! Já vou anotar o seu pedido!!!");
+	// 		this.bot.enviaMensagem(interacao);
+	// 		return;
+	// 	}
+	// 	if (mensagem.equals("/sair")) {
+	// 		interacao.setMensagemResposta("Até mais!!!");
+	// 		this.bot.enviaMensagem(interacao);
+	// 		return;
+	// 	}
 
-	}
+	// }
 
 }

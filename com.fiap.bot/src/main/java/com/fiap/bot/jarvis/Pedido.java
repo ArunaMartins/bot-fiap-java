@@ -30,10 +30,6 @@ public class Pedido {
         this.Valor = valor;
     }
 
-    public Pedido(String pizza) {
-        Pizza = pizza;
-    }
-
     public Pedido(String pizza, String valor, StatusPedido status) {
         setPizza(pizza);
         setValor(valor);
