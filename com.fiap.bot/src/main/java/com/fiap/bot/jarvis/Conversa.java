@@ -55,14 +55,16 @@ public class Conversa {
         } 
 
         if (_intencao == Intencoes.PEDIDO_EM_ANDAMENTO && !_pedidoAbertoAndamento.isPresent()) {
-            Pedido _pedido = new Pedido(Pizzas.MUZZARELA.toString(), "15.60", StatusPedido.ABERTO);
+
+            Pizzas p =  Pizzas.valueOf(_mensagem.replace('/', ' ').trim());
+            Pedido _pedido = new Pedido(p.getNome() , p.getValor(), StatusPedido.ABERTO);
+
             respostas.add("Pizza de " + _pedido.getPizza() + " no valor de " + _pedido.getValor());
             respostas.add("Anotei, gostaria de pedir mais alguma coisa ? contrario /confirmarPedido");
             pedidos.add(_pedido);
         }
 
-        if (Intencao.Identificar(_mensagem) == Intencoes.CONFIRMAR_PEDIDO
-                && _pedidoAbertoAndamento.isPresent()) {
+        if (Intencao.Identificar(_mensagem) == Intencoes.CONFIRMAR_PEDIDO && _pedidoAbertoAndamento.isPresent()) {
             respostas.add("O seu pedido é : Pizza de " + _pedidoAbertoAndamento.get().getPizza() + ", no valor de "
                     + _pedidoAbertoAndamento.get().getValor());
             respostas.add("Tudo certo? /finalizarPedido ou /alterarPedido");
@@ -75,6 +77,10 @@ public class Conversa {
 
         if (Intencao.Identificar(_mensagem) == Intencoes.NOVO_PEDIDO && !_pedidoAbertoAndamento.isPresent()) {
             respostas.add("Seja bem vindo " + this.NomeCliente + ", qual o sabor de pizza que você deseja?");
+            respostas.add("Escolha um dos sabores:");       
+            for (Pizzas pizza : Pizzas.values()) {
+              respostas.add("/"+pizza);                  
+            }
         }
 
         mensagens.add(mensagem);
