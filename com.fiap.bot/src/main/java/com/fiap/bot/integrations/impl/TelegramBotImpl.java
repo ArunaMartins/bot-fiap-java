@@ -27,6 +27,10 @@ import com.pengrad.telegrambot.response.SendResponse;
  */
 public class TelegramBotImpl extends AbstractBot {
 
+	// private static final String chaveBot = "1245760106:AAER1kXER5VM334i0vWKK9Y98aCSQikmSF8";
+
+	
+
 	private TelegramBot bot;
 	private SendResponse sendResponse;
 	private int idMensagemInicial = 0;
@@ -47,7 +51,6 @@ public class TelegramBotImpl extends AbstractBot {
 	@Override
 	protected void conectarBot(String chave) throws CouldNotConnectToBotException {
 		try {
-//			this.bot = TelegramBotAdapter.build("1218848996:AAEaq23sqJbLhx3hOwriDrdp_C0PmyTMAA8");
 			this.bot = TelegramBotAdapter.build(chave);
 		} catch (Exception e) {
 			throw new CouldNotConnectToBotException(
@@ -56,28 +59,20 @@ public class TelegramBotImpl extends AbstractBot {
 		}
 	}
 
-	/**
-	 * Método que envia a mensagem para um contato que fez uma interação recebida pelo Bot via Telegram
-	 */
-	@Override
-	public boolean enviaMensagem(AbstractInteracao interacao) {
-		Update update = (Update) interacao.getObjetoManipuladorDaMensagem();
-		this.enviaSinalDeDigitandoParaOChat(update);
-		sendResponse = bot.execute(new SendMessage(update.message().chat().id(), interacao.getMensagemResposta()));
-		return sendResponse.isOk();
-	}
-
+	
 	/**
 	 * Método interno que envia o label "Digitando..." para o Bot do Telegram
-	 * @param update O objeto de manipulação da interação do Telegram
+	 * update O objeto de manipulação da interação do Telegram
+	 * @param idConversa envio do numero do id da conversa
 	 */
-	private void enviaSinalDeDigitandoParaOChat(Update update) {
-		this.bot.execute(new SendChatAction(update.message().chat().id(), ChatAction.typing.name()));
+	public void enviarDigitando(Long idConversa) {
+		this.bot.execute(new SendChatAction(idConversa, ChatAction.typing.name()));
 	}
 
 	/**
 	 * Método que obtem as interações do telegram
 	 * @param numeroMensagens O número de interações que o método consultará a cada invocação
+	 * @return listaDeInteracoes retorna uma lista de interacoes com bot(mensagens). 
 	 */
 	@Override
 	public List<AbstractInteracao> obtemInteracoesComOBot(int numeroMensagens) {
@@ -121,12 +116,18 @@ public class TelegramBotImpl extends AbstractBot {
 
 	/**
 	 * Método que avalia se a conexão com o Telegram está ativa
-	 * @return
+	 * @return true para conexao válida
 	 */
 	public boolean isConnected() {
 		// TODO buscar a forma de validar se esta conexão é valida
 
 		return true;
+	}
+
+	@Override
+	public boolean enviaMensagem(Long idConversa, String mensagem) {
+		sendResponse = bot.execute(new SendMessage(idConversa, mensagem));
+		return sendResponse.isOk();
 	}
 
 }

@@ -13,7 +13,8 @@ public abstract class AbstractBot {
 	
 	/**
 	 * Construtor que deve ser invocado por todas as classes filhas
-	 * @throws CouldNotConnectToBotException
+	 * @throws CouldNotConnectToBotException lança exeção se não encontar a conexao
+	 * @param chaveBot numero da chave do bot
 	 */
 	public AbstractBot(String chaveBot) throws CouldNotConnectToBotException {
 		this.conectarBot(chaveBot);
@@ -28,16 +29,18 @@ public abstract class AbstractBot {
 	
 	/**
 	 * Método de envio de mensagem para um usuário que interagiu com o Bot
-	 * @param interacao O objeto interacao (AbstractInteracao ou suas classes filhas) que contém as informações da interação com o Bot
-	 * @return
+	 * O objeto interacao (AbstractInteracao ou suas classes filhas) que contém as informações da interação com o Bot
+	 * @param idConversa identificador da conversa
+	 * @param mensagem Conversa do bot
+	 * @return true/false para mensagem enviada
 	 */
-	public abstract boolean enviaMensagem(AbstractInteracao interacao);
+	public abstract boolean enviaMensagem(Long idConversa,String mensagem);
 	
 	
 	/**
-	 * 
-	 * @param numeroMensagens
-	 * @return
+	 * Método que lista as interações com o bot
+	 * @param numeroMensagens idetificação pelo numero das mensagens
+	 * @return listaDeInteracoes retorna lista com as iterações.
 	 */
 	public abstract List<AbstractInteracao> obtemInteracoesComOBot(int numeroMensagens);
 	

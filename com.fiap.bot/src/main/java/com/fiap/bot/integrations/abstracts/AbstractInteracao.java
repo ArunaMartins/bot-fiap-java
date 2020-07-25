@@ -39,7 +39,7 @@ public abstract class AbstractInteracao {
 	
 	/**
 	 * Retorna a mensagem enviada pelo contato
-	 * @return
+	 * @return mensagemResposta resposta da mensagem enviada pelo bot
 	 */
 	public String getMensagemResposta() {
 		return mensagemResposta;
@@ -47,7 +47,7 @@ public abstract class AbstractInteracao {
 
 	/**
 	 * Seta a hora em que a mensagem foi enviada pelo contato no objeto Interacao
-	 * @param dataHoraMensagem
+	 * @param dataHoraMensagem informar a data/hora da mensagem
 	 */
 	public void setDataHoraMensagem(LocalDateTime dataHoraMensagem) {
 		this.dataHoraMensagem = dataHoraMensagem;
@@ -63,7 +63,7 @@ public abstract class AbstractInteracao {
 	
 	/**
 	 * Recupera a data e a hora da mensagem que foi enviada
-	 * @return
+	 * @return dataHoraMensagem retornar a data/hora da mensagem
 	 */
 	public LocalDateTime getDataHoraMensagem() {
 		return dataHoraMensagem;
@@ -71,7 +71,7 @@ public abstract class AbstractInteracao {
 
 	/**
 	 * Retorna o Id da mensagem enviada pelo contato ao Bot
-	 * @return
+	 * @return int retorna o id da mensagem.
 	 */
 	public abstract int getIdMensagem();
 }
