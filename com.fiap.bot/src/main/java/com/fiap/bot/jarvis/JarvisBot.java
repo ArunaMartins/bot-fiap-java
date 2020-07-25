@@ -5,11 +5,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+/**
+ * Classe para iniciar a conversa no chatbot
+ * @author Ayton Henrique
+ *
+ */
+
 public class JarvisBot {
 
     private static ArrayList<Conversa> _conversas = new ArrayList<Conversa>();
 
-    public static Conversa IniciarConversa(Long idConversa, String Nome) {
+    public static Conversa iniciarConversa(Long idConversa, String Nome) {
         Optional<Conversa> conversa = _conversas.stream().filter(c -> c.getIdConversa().equals(idConversa)).findFirst();
 
         if (conversa.isPresent()) {
@@ -21,7 +27,7 @@ public class JarvisBot {
         return novaConversa;
     }
 
-    public static void EncerrarConversa() {
+    public static void encerrarConversa() {
 
     }
 

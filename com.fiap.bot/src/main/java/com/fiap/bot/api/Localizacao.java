@@ -15,7 +15,7 @@ public class Localizacao {
 	
 	/**
 	 * Retorna o CEP
-	 * @return
+	 * @return o numero do CEP
 	 */
 	public String getCep() {
 		return cep;
@@ -23,7 +23,7 @@ public class Localizacao {
 
 	/**
 	 * Seta o CEP
-	 * @param cep
+	 * @param cep informa o numero do cep
 	 */
 	public void setCep(String cep) {
 		this.cep = cep;
@@ -31,7 +31,7 @@ public class Localizacao {
 	
 	/**
 	 * Retorna o Logradouro
-	 * @return
+	 * @return o nome do logradouro
 	 */
 	public String getLogradouro() {
 		return logradouro;
@@ -39,7 +39,8 @@ public class Localizacao {
 	
 	/**
 	 * Seta o Logradouro
-	 * @param logradouro
+	 * @param logradouro informa o logradouro
+	 * 
 	 */
 	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
@@ -47,7 +48,7 @@ public class Localizacao {
 	
 	/**
 	 * Retorna o Bairro
-	 * @return
+	 * @return bairro retorna o bairro
 	 */
 	public String getBairro() {
 		return bairro;
@@ -55,7 +56,7 @@ public class Localizacao {
 	
 	/**
 	 * Seta o Bairro
-	 * @param bairro
+	 * @param bairro descreve o bairro
 	 */
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
@@ -63,7 +64,7 @@ public class Localizacao {
 	
 	/**
 	 * Retorna a Cidade
-	 * @return
+	 * @return cidade nome da cidade
 	 */
 	public String getCidade() {
 		return cidade;
@@ -71,7 +72,7 @@ public class Localizacao {
 	
 	/**
 	 * Seta a Cidade
-	 * @param cidade
+	 * @param cidade recebe o nome da cidade
 	 */
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
@@ -79,7 +80,7 @@ public class Localizacao {
 	
 	/**
 	 * Retorna o Estado
-	 * @return
+	 * @return estado retorna a sigla do Estado
 	 */
 	public String getEstado() {
 		return estado;
@@ -87,7 +88,7 @@ public class Localizacao {
 	
 	/**
 	 * Seta o Estado
-	 * @param estado
+	 * @param estado informar sigla do estado
 	 */
 	public void setEstado(String estado) {
 		this.estado = estado;
@@ -95,7 +96,7 @@ public class Localizacao {
 	
 	/**
 	 * Retorna o numero
-	 * @return
+	 * @return numero informa o numero do ensdereço
 	 */
 	public String getNumero() {
 		return numero;
@@ -103,7 +104,7 @@ public class Localizacao {
 
 	/**
 	 * Seta o numero
-	 * @param numero
+	 * @param numero informra o numero do endereço
 	 */
 	public void setNumero(String numero) {
 		this.numero = numero;

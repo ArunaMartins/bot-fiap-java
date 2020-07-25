@@ -2,6 +2,12 @@ package com.fiap.bot.jarvis;
 
 import com.fiap.bot.integrations.enums.StatusPedido;
 
+/**
+ * Classe Pedido com os atributos para identificar a Pizzaria;
+ * @author Ayton Henrique
+ *
+ */
+
 public class Pedido {
     private String Pizza;
     private String Valor;

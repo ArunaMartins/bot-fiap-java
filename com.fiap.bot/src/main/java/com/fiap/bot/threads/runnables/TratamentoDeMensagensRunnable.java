@@ -75,8 +75,8 @@ public class TratamentoDeMensagensRunnable implements Runnable {
 						"ID do Usuario   : " + idConversa + " - " + interacao.getNomeContatoInteracao());
 				System.out.println("ID da Mensagem  : " + interacao.getIdMensagem());
 
-				JarvisBot.IniciarConversa(idConversa, interacao.getNomeContatoInteracao())
-						.Responder(new Mensagem(interacao.getIdMensagem(), interacao.getMensagemEnviadaPeloUsuario(), interacao.getDataHoraMensagem()))
+				JarvisBot.iniciarConversa(idConversa, interacao.getNomeContatoInteracao())
+						.responder(new Mensagem(interacao.getIdMensagem(), interacao.getMensagemEnviadaPeloUsuario(), interacao.getDataHoraMensagem()))
 						.forEach(r -> {
 							this.bot.enviarDigitando(idConversa);
 							this.bot.enviaMensagem(idConversa, r);			

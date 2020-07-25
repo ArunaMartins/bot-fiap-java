@@ -10,6 +10,11 @@ import com.fiap.bot.integrations.enums.Intencoes;
 import com.fiap.bot.integrations.enums.Pizzas;
 import com.fiap.bot.integrations.enums.StatusPedido;
 
+/**
+ * Classe de interaçao com o Cliente no telegram para identificar as mensagens enviadas pelo cliente.
+ * @author Ayton Henrique
+ *
+ */
 public class Conversa {
     private List<Mensagem> mensagens = new ArrayList<Mensagem>();
     private List<Pedido> pedidos = new ArrayList<Pedido>();
@@ -33,7 +38,13 @@ public class Conversa {
         this.NomeCliente = NomeCliente;
     }
 
-    public ArrayList<String> Responder(Mensagem mensagem) {
+	/**
+	 * Método de resposta aos pedidos solicitados pelo cliente;
+	 * @param mensagem mensagens enviadas do bot
+	 * @return respostas retorna uma lista de mensagens
+	 */
+
+    public ArrayList<String> responder(Mensagem mensagem) {
 
         ArrayList<String> respostas = new ArrayList<String>();
         Optional<Pedido> _pedidoAbertoAndamento = pedidos.stream()
@@ -42,10 +53,10 @@ public class Conversa {
 
         String _mensagem = mensagem.getTexto();
 
-        Intencoes _intencao = Intencao.Identificar(_mensagem);
+        Intencoes _intencao = Intencao.identificar(_mensagem);
 
         if (_pedidoAbertoAndamento.isPresent() && _pedidoAbertoAndamento.get().getStatus() == StatusPedido.ANDAMENTO) {
-            String cep = Intencao.ObterCEP(_mensagem);
+            String cep = Intencao.obterCEP(_mensagem);
 
             LocalizacaoApi api = new LocalizacaoApi();
             Localizacao _localizacao = api.consultaCEP(cep);
@@ -64,18 +75,18 @@ public class Conversa {
             pedidos.add(_pedido);
         }
 
-        if (Intencao.Identificar(_mensagem) == Intencoes.CONFIRMAR_PEDIDO && _pedidoAbertoAndamento.isPresent()) {
+        if (Intencao.identificar(_mensagem) == Intencoes.CONFIRMAR_PEDIDO && _pedidoAbertoAndamento.isPresent()) {
             respostas.add("O seu pedido é: Pizza de " + _pedidoAbertoAndamento.get().getPizza() + ", no valor de "
                     + _pedidoAbertoAndamento.get().getValor());
             respostas.add("Tudo certo?, podemos finalizar o pedido? /finalizarPedido ou /alterarPedido");
         }
 
-        if (Intencao.Identificar(_mensagem) == Intencoes.FINALIZAR_PEDIDO && _pedidoAbertoAndamento.isPresent()) {
+        if (Intencao.identificar(_mensagem) == Intencoes.FINALIZAR_PEDIDO && _pedidoAbertoAndamento.isPresent()) {
             respostas.add("Qual o número do seu CEP ?");
             _pedidoAbertoAndamento.get().setStatus(StatusPedido.ANDAMENTO);
         }
 
-        if (Intencao.Identificar(_mensagem) == Intencoes.NOVO_PEDIDO && !_pedidoAbertoAndamento.isPresent()) {
+        if (Intencao.identificar(_mensagem) == Intencoes.NOVO_PEDIDO && !_pedidoAbertoAndamento.isPresent()) {
             respostas.add("Seja bem-vindo " + this.NomeCliente + ", qual o sabor de pizza que você deseja?");
             respostas.add("Escolha um dos sabores:");       
             for (Pizzas pizza : Pizzas.values()) {

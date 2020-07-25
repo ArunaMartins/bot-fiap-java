@@ -12,7 +12,7 @@ public class GerenciadorBotFiapMain
 {
 	/**
 	 * Método main que inicia a aplicação
-	 * @param args
+	 * @param args argumentos para o método.
 	 */
     public static void main( String[] args )
     {

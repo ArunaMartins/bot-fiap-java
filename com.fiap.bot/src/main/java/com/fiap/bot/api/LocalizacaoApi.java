@@ -15,7 +15,8 @@ import java.net.URL;
 public class LocalizacaoApi {
 	/**
 	 * Método de busca de Consulta do CEP
-	 * @param codigoCEP Código do CEP a ser consultado
+	 * @param codigoCEP informa o numero do cep
+	 * @return localizacao retorna a local do cep informado na mensagem
 	 */
 	public Localizacao consultaCEP(String codigoCEP){
 		Localizacao localizacao = new Localizacao();

@@ -2,6 +2,12 @@ package com.fiap.bot.jarvis;
 
 import java.time.LocalDateTime;
 
+/**
+ * Classe de Mensagem para o bot e definição dos atributos contidos na mensagem.
+ * @author Ayton Henrique
+ *
+ */
+
 public class Mensagem {
 
     private Integer IdMensagem;

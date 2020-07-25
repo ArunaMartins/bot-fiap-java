@@ -1,5 +1,10 @@
 package com.fiap.bot.integrations.enums;
 
+/**
+ * Este Enum é responsavel pelo tipos de Pizzas que serão listados para o cliente.
+ * @author Ayton Henrique
+ *
+ */
 public enum Pizzas {
     MUZZARELA("MUZZARELA","25.60"),
     PORTUGUESA("PORTUGUESA","35.60");

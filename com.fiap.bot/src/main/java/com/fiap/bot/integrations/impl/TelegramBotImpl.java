@@ -62,7 +62,8 @@ public class TelegramBotImpl extends AbstractBot {
 	
 	/**
 	 * Método interno que envia o label "Digitando..." para o Bot do Telegram
-	 * @param update O objeto de manipulação da interação do Telegram
+	 * update O objeto de manipulação da interação do Telegram
+	 * @param idConversa envio do numero do id da conversa
 	 */
 	public void enviarDigitando(Long idConversa) {
 		this.bot.execute(new SendChatAction(idConversa, ChatAction.typing.name()));
@@ -71,6 +72,7 @@ public class TelegramBotImpl extends AbstractBot {
 	/**
 	 * Método que obtem as interações do telegram
 	 * @param numeroMensagens O número de interações que o método consultará a cada invocação
+	 * @return listaDeInteracoes retorna uma lista de interacoes com bot(mensagens). 
 	 */
 	@Override
 	public List<AbstractInteracao> obtemInteracoesComOBot(int numeroMensagens) {
@@ -114,7 +116,7 @@ public class TelegramBotImpl extends AbstractBot {
 
 	/**
 	 * Método que avalia se a conexão com o Telegram está ativa
-	 * @return
+	 * @return true para conexao válida
 	 */
 	public boolean isConnected() {
 		// TODO buscar a forma de validar se esta conexão é valida
