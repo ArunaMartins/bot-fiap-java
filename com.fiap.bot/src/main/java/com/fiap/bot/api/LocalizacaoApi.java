@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import com.fiap.bot.exceptions.CEPInvalidoException;
+
 /**
  * Esta classe é utilizada para buscar informações de 
  * localização a partir de um CEP
@@ -17,16 +19,17 @@ public class LocalizacaoApi {
 	 * Método de busca de Consulta do CEP
 	 * @param codigoCEP informa o numero do cep
 	 * @return localizacao retorna a local do cep informado na mensagem
+	 * @throws Exception Exceção lançada caso ocorra algum problemea na consulta do CEP na API
 	 */
-	public Localizacao consultaCEP(String codigoCEP){
+	public Localizacao consultaCEP(String codigoCEP) throws Exception{
 		Localizacao localizacao = new Localizacao();
 		try {
-			codigoCEP = codigoCEP.replace("-", "");
+			String codigoCEPFormatado = codigoCEP.replace("-", "");
 			
-			if (codigoCEP.isEmpty())
-				throw new Exception("CEP não informado!");
+			if (codigoCEPFormatado.length()==0)
+				throw new CEPInvalidoException("CEP não informado corretamente.");
 				
-            URL url = new URL("https://viacep.com.br/ws/" + codigoCEP + "/json/");//your url i.e fetch data from .
+            URL url = new URL("https://viacep.com.br/ws/" + codigoCEPFormatado + "/json/");//your url i.e fetch data from .
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
@@ -72,12 +75,10 @@ public class LocalizacaoApi {
             	}
            	            	            	
             }
-            System.out.println("Dados do CEP encontrado");
-            System.out.println(localizacao.toString());
             conn.disconnect();
             
         } catch (Exception e) {
-            System.out.println("Erro ao buscar dados do CEP " + e);
+            throw e;
         }
 		
 		return localizacao;

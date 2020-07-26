@@ -2,8 +2,6 @@ package com.fiap.bot.jarvis;
 
 import com.fiap.bot.integrations.enums.Intencoes;
 import com.fiap.bot.integrations.enums.Pizzas;
-
-import java.util.regex.*;
 /**
  * Classe de intenções para identificar o status do pedido enviado para o cliente;
  * @author Ayton Henrique
@@ -18,7 +16,6 @@ public class Intencao {
 	 */
     public static Intencoes identificar(String mensagem) {
         // TODO: REGEX
-        Intencoes _intencao = Intencoes.NOVO_PEDIDO;
         if (mensagem.equalsIgnoreCase("/confirmarPedido")) {
             return Intencoes.CONFIRMAR_PEDIDO;
         }
@@ -40,10 +37,11 @@ public class Intencao {
 	 * @return numeracao do cep
 	 */
     public static String obterCEP(String mensagem) {
-        Pattern p = Pattern.compile("(\\d)+");
-        Matcher m = p.matcher(mensagem);
-        m.find();
-        // Matcher m = p.matcher(stringToSearch);
-        return m.group();
+    	String padrao1 = "\\d\\d\\d\\d\\d-\\d\\d\\d";
+    	String padrao2 = "\\d\\d\\d\\d\\d\\d\\d\\d";
+    	
+    	if(mensagem.matches(padrao1) || mensagem.matches(padrao2)) return mensagem;
+    	
+    	return "";
     }
 }
