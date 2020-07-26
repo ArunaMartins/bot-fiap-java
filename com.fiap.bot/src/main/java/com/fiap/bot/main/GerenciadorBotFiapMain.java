@@ -22,8 +22,6 @@ public class GerenciadorBotFiapMain
     		// Iniciando...
 			gerenciador.iniciarBot();
 		} catch (CouldNotConnectToBotException e) {
-			// TODO Auto-generated catch block
-			// TODO Add log4J
 			e.printStackTrace();
 		}
     }

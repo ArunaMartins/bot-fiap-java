@@ -27,10 +27,6 @@ import com.pengrad.telegrambot.response.SendResponse;
  */
 public class TelegramBotImpl extends AbstractBot {
 
-	// private static final String chaveBot = "1245760106:AAER1kXER5VM334i0vWKK9Y98aCSQikmSF8";
-
-	
-
 	private TelegramBot bot;
 	private SendResponse sendResponse;
 	private int idMensagemInicial = 0;
@@ -91,10 +87,6 @@ public class TelegramBotImpl extends AbstractBot {
 				// Incrementa o offset
 				idMensagemInicial = update.updateId() + 1;
 
-//				if (update.message().audio() != null) {
-//					throw new NotSupportedMessageTypeException(MessageTypes.AUDIO.getNome());
-//				}
-
 				String mensagemEnviada = update.message().text();
 				if (mensagemEnviada != null) {
 					InteracaoTelegram it = new InteracaoTelegram(update);
@@ -115,15 +107,25 @@ public class TelegramBotImpl extends AbstractBot {
 	}
 
 	/**
-	 * Método que avalia se a conexão com o Telegram está ativa
-	 * @return true para conexao válida
+	 * Método que avalia se a conexão com o Telegram está ativa através de uma tentativa de buscas de alguma mensagem no Bot
+	 * @return true para conexao válida e false para conexão invalida
 	 */
 	public boolean isConnected() {
-		// TODO buscar a forma de validar se esta conexão é valida
 
-		return true;
+		// Cria objeto de recebimento de mensagens
+		GetUpdatesResponse updatesResponse = updatesResponse = bot.execute(new GetUpdates().limit(1).offset(idMensagemInicial));
+		// Recupera a lista de mensagens solicitada
+		List<Update> updates = updatesResponse.updates();
+		
+		if(updates!=null)
+			return true;
+		
+		return false;
 	}
 
+	/**
+	 * Método que envia uma mensagem para uma conversa específica com uma mensagem específica
+	 */
 	@Override
 	public boolean enviaMensagem(Long idConversa, String mensagem) {
 		sendResponse = bot.execute(new SendMessage(idConversa, mensagem));

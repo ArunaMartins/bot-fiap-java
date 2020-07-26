@@ -61,13 +61,14 @@ public class GerenciadorBotTelegramFIAP {
 		// Iniciando a conexão com o Bot e validando se a conexão está válida
 		System.out.println("Conectando ao Bot do Telegram. Por favor aguarde...");
 		TelegramBotImpl bot = new TelegramBotImpl(chaveBotTelegram);
-		boolean conectado = bot.isConnected();
-		if (conectado) {
-			System.out.println("Conexão com o Bot realizada com sucesso. Bot Conectado: " + conectado);
+		boolean connected = bot.isConnected();
+		if (connected) {
+			System.out.println("Conexão com o Bot realizada com sucesso. Bot Conectado: " + connected);
 			this.iniciaThreadDeTratamentoDasMensagensDoTelegram(bot);
-			
 			System.out.println("Todos os componentes carregados...\n\n\n");
 			this.iniciaMenusDeConsultaDoGerenciador();
+		} else {
+			System.out.println("Não foi possível se conectar ao Bot.");
 		}
 	}
 
@@ -197,11 +198,9 @@ public class GerenciadorBotTelegramFIAP {
 		String valorLido = "";
 		try {
 			valorLido = s.nextLine();
-
 		} catch (NoSuchElementException e) {
 			System.out.println(e.getMessage());
 		}
-
 		return valorLido;
 	}
 
