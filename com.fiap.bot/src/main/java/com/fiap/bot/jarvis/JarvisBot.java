@@ -1,9 +1,7 @@
 package com.fiap.bot.jarvis;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 /**
  * Classe para iniciar a conversa no chatbot
@@ -26,7 +24,27 @@ public class JarvisBot {
         _conversas.add(novaConversa);
         return novaConversa;
     }
+    
+    /**
+     * Método auxiliar que retorna para um chamador o número de conversas manipuladas
+     * @return
+     */
+    public static int recuperaNumeroDeConversasManipuladas() {
+    	return JarvisBot._conversas.size();
+    }
 
+    /**
+     * Método auxiliar que retorna o numero de pedidos feito via Bot
+     * @return
+     */
+    public static int recuperaNumeroDePedidosEfetuadosViaBot() {
+    	int retorno = 0;
+    	for(Conversa c : JarvisBot._conversas) {
+    		retorno += c.getPedidos().size();
+    	}
+    	return retorno;
+    }
+    
     public static void encerrarConversa() {
 
     }

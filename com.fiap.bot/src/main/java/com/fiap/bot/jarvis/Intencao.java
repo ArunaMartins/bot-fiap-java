@@ -27,8 +27,24 @@ public class Intencao {
         if (mensagem.equalsIgnoreCase("/finalizarPedido")) {
             return Intencoes.FINALIZAR_PEDIDO;
         }
+        
+        if(mensagem.equalsIgnoreCase("/alterarPedido")) {
+        	return Intencoes.ALTERAR_PEDIDO;
+        }
+        
+        if(mensagem.equalsIgnoreCase("/escolherNovamente")) {
+        	return Intencoes.ESCOLHER_PIZZAS_NOVAMENTE;
+        }
+        
+        if(mensagem.equalsIgnoreCase("/adicionarPizzas")) {
+        	return Intencoes.ADICIONAR_PIZZAS;
+        }
 
-        return Intencoes.NOVO_PEDIDO;
+        if(mensagem.equalsIgnoreCase("/start")) {
+        	return Intencoes.NOVO_PEDIDO;
+        }
+        
+        return Intencoes.INTENCAO_DESCONHECIDA;
     }
 
     /**

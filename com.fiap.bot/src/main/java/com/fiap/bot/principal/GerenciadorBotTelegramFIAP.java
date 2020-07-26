@@ -13,6 +13,7 @@ import com.fiap.bot.constants.Constants;
 import com.fiap.bot.exceptions.CouldNotConnectToBotException;
 import com.fiap.bot.integrations.abstracts.AbstractInteracao;
 import com.fiap.bot.integrations.impl.TelegramBotImpl;
+import com.fiap.bot.jarvis.JarvisBot;
 import com.fiap.bot.threads.runnables.TratamentoDeMensagensRunnable;
 
 /**
@@ -168,7 +169,7 @@ public class GerenciadorBotTelegramFIAP {
 	 * Método que retorna o número de pedidos feitos na pizzaria
 	 */
 	private void consultaNumeroDePedidosFeitosNaPizzaria() {
-		int size = this.mapaDeInteracoes.entrySet().size();
+		int size = JarvisBot.recuperaNumeroDePedidosEfetuadosViaBot();
 		System.out.println("O número de pedidos feitos por usuários tratados pelo Bot é de: " + size);
 		System.out.println("\n\n");
 	}
@@ -177,7 +178,7 @@ public class GerenciadorBotTelegramFIAP {
 	 * Método que retorna o número de conversas tratadas no Bot
 	 */
 	private void consultaNumeroDeConversasTratadasNoBot() {
-		int size = this.mapaDeInteracoes.entrySet().size();
+		int size = JarvisBot.recuperaNumeroDeConversasManipuladas();
 		System.out.println("O número de conversas com usuários distintos tratados pelo Bot é de: " + size);
 		System.out.println("\n\n");
 	}
