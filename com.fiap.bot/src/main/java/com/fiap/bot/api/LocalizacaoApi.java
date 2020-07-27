@@ -21,7 +21,7 @@ public class LocalizacaoApi {
 	 * @return localizacao retorna a local do cep informado na mensagem
 	 * @throws Exception Exceção lançada caso ocorra algum problemea na consulta do CEP na API
 	 */
-	public Localizacao consultaCEP(String codigoCEP) throws Exception{
+	public Localizacao consultaCEP(String codigoCEP) throws Exception {
 		Localizacao localizacao = new Localizacao();
 		try {
 			String codigoCEPFormatado = codigoCEP.replace("-", "");
@@ -29,14 +29,13 @@ public class LocalizacaoApi {
 			if (codigoCEPFormatado.length()==0)
 				throw new CEPInvalidoException("CEP não informado corretamente.");
 				
-            URL url = new URL("https://viacep.com.br/ws/" + codigoCEPFormatado + "/json/");//your url i.e fetch data from .
+            URL url = new URL("https://viacep.com.br/ws/" + codigoCEPFormatado + "/json/");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
             
             if (conn.getResponseCode() != 200) {
-                throw new RuntimeException("Falha: Erro HTTP Codigo: "
-                        + conn.getResponseCode());
+                throw new CEPInvalidoException("Falha: Erro HTTP Codigo: " + conn.getResponseCode());
             }
             
             InputStreamReader in = new InputStreamReader(conn.getInputStream());
@@ -68,7 +67,9 @@ public class LocalizacaoApi {
 	                	case "\"ibge\"":
 	    					break;
 	                	case "\"gia\"":
-	                		break;    					
+	                		break; 
+	                	case "\"erro\"":
+	                		throw new CEPInvalidoException("Endereço não encontrado para o CEP: " + codigoCEP);
 	    				default:
 	    					break;
     				}
@@ -77,7 +78,7 @@ public class LocalizacaoApi {
             }
             conn.disconnect();
             
-        } catch (Exception e) {
+        } catch (CEPInvalidoException e) {
             throw e;
         }
 		
