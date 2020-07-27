@@ -22,13 +22,13 @@ import com.fiap.bot.integrations.enums.StatusPedido;
 public class Conversa {
 	private List<Mensagem> mensagens = new ArrayList<Mensagem>();
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
-	private List<Pedido> pedidosPassados = new ArrayList<Pedido>();
+	private List<CompraFinalizada> comprasFinalizadas = new ArrayList<CompraFinalizada>();
 
 	private String NomeCliente;
 	private Long IdConversa;
 
-	public List<Pedido> getPedidos() {
-		return Collections.unmodifiableList(this.pedidos);
+	public List<CompraFinalizada> getComprasFinalizadas() {
+		return Collections.unmodifiableList(this.comprasFinalizadas);
 	}
 
 	public List<Mensagem> getMensagens() {
@@ -290,15 +290,20 @@ public class Conversa {
 					Localizacao _localizacao = localizacaoAPI.consultaCEP(cep);
 
 					respostas.add("Você está em:");
-					respostas.add(_localizacao.getLogradouro() + " - " + _localizacao.getBairro() + " "
-							+ _localizacao.getCidade() + "/" + _localizacao.getEstado());
+					String endereco = _localizacao.getLogradouro() + " - " + _localizacao.getBairro() + " "
+							+ _localizacao.getCidade() + "/" + _localizacao.getEstado();
+					respostas.add(endereco);
 					respostas.add("Seu pedido já está sendo preparado.");
 					respostas.add("Clique em /start para fazer um novo pedido.");
 
 					// Limpa a lista de pedidos atuais para permitir um novo pedido
 					_pedidoAbertoAndamento.get().setStatus(StatusPedido.FECHADO);
 					// Adiciona o pedido atual na lista de pedidos passados desta conversa
-					this.pedidosPassados.addAll(this.pedidos);
+					CompraFinalizada compraFinalizada = new CompraFinalizada();
+					compraFinalizada.setCEPEntrega(cep);
+					compraFinalizada.setEnderecoEntrega(endereco);
+					compraFinalizada.setPedidosFeitosNestaCompra(this.pedidos);
+					this.comprasFinalizadas.add(compraFinalizada);
 					this.pedidos.clear();
 				} catch (CEPInvalidoException e) {
 					respostas.add("Desculpe-nos. Ocorreu um problema na busca do seu endereço.");
