@@ -115,10 +115,11 @@ public class GerenciadorBotTelegramFIAP {
 			System.out.println("******************************************************************");
 			System.out.println("	Escolha uma das opções para iniciar:      ");
 			System.out.println("                                              ");
-			System.out.println(" 1. Consultar número de conversas tratadas pelo Bot");
-			System.out.println(" 2. Consultar número de pedidos feitos na pizzaria");
-			System.out.println(" 3. Consultar total vendido pela pizzaria hoje");
-			System.out.println(" 4. Sair");
+			System.out.println(" 1. Consultar número de interlocutores com conversas tratadas pelo Bot");
+			System.out.println(" 2. Consultar número de pizzas vendidas na pizzaria pelo Bot");
+			System.out.println(" 3. Consultar total vendido pela pizzaria hoje pelo Bot");
+			System.out.println(" 4. Listar os pedidos feitos na pizzaria atendidos pelo Bot");
+			System.out.println(" 5. Sair");
 			System.out.println("\n");
 
 			if (mensagem != null) {
@@ -148,6 +149,9 @@ public class GerenciadorBotTelegramFIAP {
 			this.consultaTotalVendidoPelaPizzaria();
 			break;
 		case "4":
+			this.listarPedidosFeitosNaPizzariaPeloBot();
+			break;
+		case "5":
 			this.finalizaExecucaoDoPrograma();
 			break;
 		default:
@@ -156,12 +160,20 @@ public class GerenciadorBotTelegramFIAP {
 
 	}
 
+	private void listarPedidosFeitosNaPizzariaPeloBot() {
+		JarvisBot.listarPedidosFeitosNaPizzaria();
+		System.out.println("\n");
+		System.out.println("Listagem finalizada.");
+		System.out.println("\n\n");
+		
+	}
+
 	/**
 	 * Método que retorna o total vendido na pizzaria com base nas interações com o Bot
 	 */
 	private void consultaTotalVendidoPelaPizzaria() {
-		double total = this.mapaDeInteracoes.entrySet().size();
-		System.out.println("O valor total dos pedidos feitos por usuários tratados pelo Bot é de: " + total);
+		double total = JarvisBot.recuperaTotalVendidoPelaPizzaria();
+		System.out.println("O valor total dos pedidos feitos por usuários tratados pelo Bot é de: R$ " + String.format("%.2f", total));
 		System.out.println("\n\n");
 	}
 
@@ -169,8 +181,8 @@ public class GerenciadorBotTelegramFIAP {
 	 * Método que retorna o número de pedidos feitos na pizzaria
 	 */
 	private void consultaNumeroDePedidosFeitosNaPizzaria() {
-		int size = JarvisBot.recuperaNumeroDePedidosEfetuadosViaBot();
-		System.out.println("O número de pedidos feitos por usuários tratados pelo Bot é de: " + size);
+		int size = JarvisBot.recuperaNumeroDePedidosDePizzaEfetuadosViaBot();
+		System.out.println("O número de pizzas vendidos pelo Bot é de: " + size);
 		System.out.println("\n\n");
 	}
 
@@ -179,7 +191,7 @@ public class GerenciadorBotTelegramFIAP {
 	 */
 	private void consultaNumeroDeConversasTratadasNoBot() {
 		int size = JarvisBot.recuperaNumeroDeConversasManipuladas();
-		System.out.println("O número de conversas com usuários distintos tratados pelo Bot é de: " + size);
+		System.out.println("O número de conversas com interlocutores tratados pelo Bot é de: " + size);
 		System.out.println("\n\n");
 	}
 
