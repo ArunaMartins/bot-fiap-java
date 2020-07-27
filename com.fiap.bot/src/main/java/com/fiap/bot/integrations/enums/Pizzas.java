@@ -7,8 +7,10 @@ package com.fiap.bot.integrations.enums;
  */
 public enum Pizzas {
     MUZZARELA("MUZZARELA","25.60"),
-    PORTUGUESA("PORTUGUESA","35.60");
-
+    PORTUGUESA("PORTUGUESA","35.60"),
+    ATUM("ATUM","15.60"),
+    MARGUERITA("MARGUERITA","30.60");
+	
     private String nome;
 	private String valor;
     
