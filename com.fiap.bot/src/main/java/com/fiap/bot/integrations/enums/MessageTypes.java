@@ -2,7 +2,7 @@ package com.fiap.bot.integrations.enums;
 
 /**
  * Este Enum é responsavel por classificar os tipos de mensagens possiveis tratados pelo Bot
- * @author cedua
+ * @author Carlos Eduardo Roque da Silva
  *
  */
 public enum MessageTypes {

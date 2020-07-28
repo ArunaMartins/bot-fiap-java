@@ -16,7 +16,7 @@ import com.fiap.bot.integrations.enums.StatusPedido;
  * Classe de interaçao com o Cliente no telegram para identificar as mensagens
  * enviadas pelo cliente.
  * 
- * @author Ayton Henrique
+ * @author Ayton Henrique, Aruna Fernanda, Sara, Carlos Eduardo Roque da Silva
  *
  */
 public class Conversa {
@@ -27,18 +27,34 @@ public class Conversa {
 	private String NomeCliente;
 	private Long IdConversa;
 
+	/**
+	 * Método que retorna a lista de compras finalizadas pelo Bot em uma conversa
+	 * @return A lista de compras finalizadas
+	 */
 	public List<CompraFinalizada> getComprasFinalizadas() {
 		return Collections.unmodifiableList(this.comprasFinalizadas);
 	}
 
+	/**
+	 * Retorna a lista de mensagens tratadas pelo Bot nesta conversa
+	 * @return A lista de mensagens
+	 */
 	public List<Mensagem> getMensagens() {
 		return mensagens;
 	}
 
+	/**
+	 * Método que retorna o nome do cliente desta conversa
+	 * @return O nome do cliente
+	 */
 	public String getNomeCliente() {
 		return NomeCliente;
 	}
 
+	/**
+	 * Método que retorna o id desta conversa
+	 * @return O id desta conversa
+	 */
 	public Long getIdConversa() {
 		return this.IdConversa;
 	}

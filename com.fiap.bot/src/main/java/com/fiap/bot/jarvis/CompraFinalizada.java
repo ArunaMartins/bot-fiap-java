@@ -3,6 +3,11 @@ package com.fiap.bot.jarvis;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe que representa a finalização de uma compra feita com o Bot. Ela consolida o que foi comprado, quem comprou e o endereço de entrega
+ * @author Carlos Eduardo Roque da Silva
+ *
+ */
 public class CompraFinalizada {
 	
 	private List<Pedido> pedidosFeitosNestaCompra = new ArrayList<Pedido>();

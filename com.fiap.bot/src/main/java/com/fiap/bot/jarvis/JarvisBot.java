@@ -27,7 +27,7 @@ public class JarvisBot {
     
     /**
      * Método auxiliar que retorna para um chamador o número de conversas manipuladas
-     * @return
+     * @return Recupera o numero de conversas manipuladas pelo bot
      */
     public static int recuperaNumeroDeConversasManipuladas() {
     	return JarvisBot._conversas.size();
@@ -35,7 +35,7 @@ public class JarvisBot {
 
     /**
      * Método auxiliar que retorna o numero de pedidos feito via Bot
-     * @return
+     * @return O numero de Pedidos de pizza feitos via bot
      */
     public static int recuperaNumeroDePedidosDePizzaEfetuadosViaBot() {
     	int retorno = 0;
